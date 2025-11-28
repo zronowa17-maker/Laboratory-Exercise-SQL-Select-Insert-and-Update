@@ -15,6 +15,12 @@ namespace FrmClubRegistration
     {
         private SqlConnection sqlconnection;
         private SqlCommand sqlcommand;
+
+        private ClubRegistrationQuery clubRegistrationQuery;
+        private int ID, Age, count;
+        private string FirstName, MiddleName, LastName, Gender, Program;
+        private long StudentID;
+
         public FrmClubRegistration()
         {
             InitializeComponent();
