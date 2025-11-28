@@ -32,6 +32,21 @@ namespace FrmClubRegistration
         }
 
         private long StudentID;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ID = RegistrationID();
+            StudentID = Convert.ToInt64(textBox1.Text);
+            FirstName = textBox3.Text;
+            MiddleName = textBox4.Text;
+            LastName = textBox2.Text;
+            Age = Convert.ToInt32(textBox5.Text);
+            Gender = comboBox2.Text;
+            Program = comboBox1.Text;
+            RegisterStudent(ID, StudentID, FirstName, MiddleName, Gender, Program);   
+           
+        }
+
         public FrmClubRegistration()
         {
             InitializeComponent();
@@ -57,7 +72,7 @@ namespace FrmClubRegistration
         {
 
         }
-        public bool RegisterStudent(int ID, long StudentID, string FirstName, string MiddleName, string LastName, int Age, string Gender, string Program)
+        public bool clubRegistration.RegisterStudent(int ID, long StudentID, string FirstName, string MiddleName, string LastName, int Age, string Gender, string Program)
         {
             sqlcommand = new SqlCommand("INSERT INTO ClubMembers VALUES(@ID, @StudentID, @FirstName, @MiddleName, @LastName, @Age, @Gender, @Program)", sqlconnection);
             sqlcommand.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
