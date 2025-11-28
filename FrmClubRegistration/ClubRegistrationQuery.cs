@@ -15,7 +15,7 @@ namespace FrmClubRegistration
         private SqlCommand sqlcommand;
         private SqlDataAdapter sqladapter;
         private DataTable datatable;
-        private string connectionString = "your_connection_string_here";
+        private string connectionString = "C:\\USERS\\PANGAN.347793\\SOURCE\\REPOS\\FRMCLUBREGISTRATION\\FRMCLUBREGISTRATION\\CLUBDB.MDF";
 
         public DataTable dataTable;
         public BindingSource bindingSource;
@@ -25,6 +25,15 @@ namespace FrmClubRegistration
         public string Gender;
         public string Porgram;
         public string Age;
+
+
+        public ClubRegistrationQuery()
+        {
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + connectionString + ";Integrated Security=True;Connect Timeout=30";
+            sqlconnection = new SqlConnection(connectionString);
+            datatable = new DataTable();
+            bindingSource = new BindingSource();
+        }
 
     }
 }
