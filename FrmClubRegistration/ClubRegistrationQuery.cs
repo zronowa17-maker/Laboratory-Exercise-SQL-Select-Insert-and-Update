@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Microsoft.SqlServer.Server;
 
 namespace FrmClubRegistration
 {
@@ -34,6 +35,18 @@ namespace FrmClubRegistration
             datatable = new DataTable();
             bindingSource = new BindingSource();
         }
+
+        public bool DisplayList()
+        {            
+            string ViewClubMembers = "SELECT StudentId, FirstName, MiddleName, LastName, Age, Gender, Program FROM ClubMembers";
+            sqladapter = new SqlDataAdapter(ViewClubMembers, sqlconnection);
+            dataTable.Clear();
+            sqladapter.Fill(dataTable);
+            bindingSource.DataSource = dataTable;
+            return true;
+        }
+
+
 
     }
 }
