@@ -32,7 +32,6 @@ namespace FrmClubRegistration
         }
 
         private long StudentID;
-
         public FrmClubRegistration()
         {
             InitializeComponent();
@@ -41,6 +40,13 @@ namespace FrmClubRegistration
         {
             clubRegistrationQuery.DisplayList();
             dataGridView1.DataSource = clubRegistrationQuery.bindingSource;
+        }
+
+        private int RegistrationID()
+        {
+            count++;
+            return count;
+
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
