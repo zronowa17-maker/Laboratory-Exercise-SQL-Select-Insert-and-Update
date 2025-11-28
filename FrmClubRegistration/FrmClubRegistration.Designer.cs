@@ -237,6 +237,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "FrmClubRegistration";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FrmClubRegistration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

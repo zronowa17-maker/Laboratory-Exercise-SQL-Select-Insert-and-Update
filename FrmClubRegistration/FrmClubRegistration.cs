@@ -25,6 +25,12 @@ namespace FrmClubRegistration
             RefreshListOfClubMembers();
         }
 
+        private void FrmClubRegistration_Load(object sender, EventArgs e)
+        {
+            clubRegistrationQuery = new ClubRegistrationQuery();
+            RefreshListOfClubMembers();
+        }
+
         private long StudentID;
 
         public FrmClubRegistration()
