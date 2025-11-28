@@ -19,13 +19,23 @@ namespace FrmClubRegistration
         private ClubRegistrationQuery clubRegistrationQuery;
         private int ID, Age, count;
         private string FirstName, MiddleName, LastName, Gender, Program;
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RefreshListOfClubMembers();
+        }
+
         private long StudentID;
 
         public FrmClubRegistration()
         {
             InitializeComponent();
         }
-
+        public void RefreshListOfClubMembers()
+        {
+            clubRegistrationQuery.DisplayList();
+            dataGridView1.DataSource = clubRegistrationQuery.bindingSource;
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
