@@ -13,22 +13,21 @@ namespace FrmClubRegistration
 {
     public partial class FrmClubRegistration : Form
     {
-        private SqlConnection sqlconnection;
-        private SqlCommand sqlcommand;
-
         private ClubRegistrationQuery clubRegistrationQuery;
         private int ID, Age, count;
         private string FirstName, MiddleName, LastName, Gender, Program;
 
         private void button3_Click(object sender, EventArgs e)
         {
-            RefreshListOfClubMembers();
+            RefreshListOfClubMembers1();
+            ClearInputs();
+
         }
 
         private void FrmClubRegistration_Load(object sender, EventArgs e)
         {
             clubRegistrationQuery = new ClubRegistrationQuery();
-            RefreshListOfClubMembers();
+            RefreshListOfClubMembers1();
         }
 
         private long StudentID;
@@ -43,15 +42,75 @@ namespace FrmClubRegistration
             Age = Convert.ToInt32(textBox5.Text);
             Gender = comboBox2.Text;
             Program = comboBox1.Text;
-            RegisterStudent(ID, StudentID, FirstName, MiddleName, Gender, Program);   
+
+            
+            bool isRegistered = clubRegistrationQuery.RegisterStudent(
+                ID,
+                StudentID,
+                FirstName,
+                MiddleName,
+                LastName,
+                Age,
+                Gender,
+                Program
+            );
+
+            if (isRegistered)
+            {
+                MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+               
+                RefreshListOfClubMembers1();
+            }
+            else
+            {
+                MessageBox.Show("Registration failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FrmUpdateMember updateForm = new FrmUpdateMember();
+
            
+            updateForm.ShowDialog();
+            RefreshListOfClubMembers1();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
+
+                
+                textBox1.Text = row.Cells[0].Value.ToString();
+
+               
+                textBox2.Text = row.Cells[3].Value.ToString(); 
+                
+                textBox3.Text = row.Cells[1].Value.ToString();
+
+                
+                textBox4.Text = row.Cells[2].Value.ToString();
+
+                
+                textBox5.Text = row.Cells[4].Value.ToString();
+
+                
+                comboBox2.Text = row.Cells[5].Value.ToString();
+
+               
+                comboBox1.Text = row.Cells[6].Value.ToString();
+            }
         }
 
         public FrmClubRegistration()
         {
             InitializeComponent();
         }
-        public void RefreshListOfClubMembers()
+        public void RefreshListOfClubMembers1()
         {
             clubRegistrationQuery.DisplayList();
             dataGridView1.DataSource = clubRegistrationQuery.bindingSource;
@@ -72,24 +131,22 @@ namespace FrmClubRegistration
         {
 
         }
-        public bool clubRegistration.RegisterStudent(int ID, long StudentID, string FirstName, string MiddleName, string LastName, int Age, string Gender, string Program)
+        private void ClearInputs()
         {
-            sqlcommand = new SqlCommand("INSERT INTO ClubMembers VALUES(@ID, @StudentID, @FirstName, @MiddleName, @LastName, @Age, @Gender, @Program)", sqlconnection);
-            sqlcommand.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-            sqlcommand.Parameters.Add("@StudentID", SqlDbType.BigInt).Value = StudentID; 
-            sqlcommand.Parameters.Add("@RegistrationID", SqlDbType.BigInt).Value = StudentID; 
-            sqlcommand.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = FirstName;
-            sqlcommand.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = MiddleName;
-            sqlcommand.Parameters.Add("@LastName", SqlDbType.VarChar).Value = LastName;
-            sqlcommand.Parameters.Add("@Age", SqlDbType.Int).Value = Age;
-            sqlcommand.Parameters.Add("@Gender", SqlDbType.VarChar).Value = Gender;
-            sqlcommand.Parameters.Add("@Program", SqlDbType.VarChar).Value = Program;
-            sqlconnection.Open();
-            sqlcommand.ExecuteNonQuery();
-            sqlconnection.Close();
+            
+            textBox1.Clear(); 
+            textBox2.Clear(); 
+            textBox3.Clear(); 
+            textBox4.Clear(); 
+            textBox5.Clear(); 
 
-            return true;
+            comboBox1.SelectedIndex = -1; 
+            comboBox2.SelectedIndex = -1; 
+
+           
+            textBox1.Focus();
         }
+
     }
 }
 
